@@ -1,7 +1,5 @@
 name: test-harness-acapy-acapy
-on:
-  schedule:
-    - cron: "0 0 * * *"
+on: push
 defaults:
   run:
     shell: bash
