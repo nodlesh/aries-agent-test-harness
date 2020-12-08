@@ -24,3 +24,4 @@ jobs:
         with:
           DEFAULT_AGENT: acapy-master
           BOB_AGENT: acapy-master
+          REPORT_PROJECT: acapy  
