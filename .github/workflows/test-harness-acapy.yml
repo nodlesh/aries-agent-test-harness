@@ -19,9 +19,10 @@ jobs:
         uses: ./test-harness/actions/run-indy-tails-server
       - name: run-test-harness
         uses: ./test-harness/actions/run-test-harness
-      - name: run-send-gen-test-results
-        uses: ./test-harness/actions/run-send-gen-test-results
         with:
           DEFAULT_AGENT: acapy-master
           BOB_AGENT: acapy-master
+      - name: run-send-gen-test-results
+        uses: ./test-harness/actions/run-send-gen-test-results
+        with:
           REPORT_PROJECT: acapy  
