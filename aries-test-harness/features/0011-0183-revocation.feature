@@ -5,7 +5,7 @@ Feature: Aries agent credential revocation and revocation notification RFC 0011 
       And "Acme" is ready to issue a credential
 
    @T001-RFC0011 @RFC0011 @P1 @critical @AcceptanceTest @Schema_DriversLicense_Revoc @Indy
-   Scenario Outline: Credential revoked by Issuer and Holder attempts to prove
+   Scenario Outline: Credential revoked by Issuer and Holder attempts to prove with a prover that doesn't care if it was revoked
       Given "2" agents
          | name  | role     |
          | Bob   | prover   |
@@ -16,7 +16,7 @@ Feature: Aries agent credential revocation and revocation notification RFC 0011 
       And "Faber" sends a <request_for_proof> presentation to "Bob"
       And "Bob" makes the <presentation> of the proof
       And "Faber" acknowledges the proof
-      Then "Bob" has the proof unverified
+      Then "Bob" has the proof verified
 
       Examples:
          | issuer | credential_data   | request_for_proof              | presentation                  |
@@ -98,7 +98,7 @@ Feature: Aries agent credential revocation and revocation notification RFC 0011 
          | Acme   | Data_DL_MinValues | Data_DL_MaxValues   | -14500:now   | proof_request_DL_revoc_address | presentation_DL_revoc_address_w_ts |
 
    @T003-RFC0011 @RFC0011 @P2 @normal @AcceptanceTest @Schema_DriversLicense_Revoc @Indy
-   Scenario Outline: Proof in process while Issuer revokes credential before presentation
+   Scenario Outline: Proof in process while Issuer revokes credential before presentation and the verifier doesn't care about revocation status
       Given "2" agents
          | name  | role     |
          | Bob   | prover   |
@@ -109,7 +109,7 @@ Feature: Aries agent credential revocation and revocation notification RFC 0011 
       And <issuer> revokes the credential
       And "Bob" makes the <presentation> of the proof
       And "Faber" acknowledges the proof
-      Then "Bob" has the proof unverified
+      Then "Bob" has the proof verified
 
       Examples:
          | issuer | credential_data   | request_for_proof              | presentation                  |
