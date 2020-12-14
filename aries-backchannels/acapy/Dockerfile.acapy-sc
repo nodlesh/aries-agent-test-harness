@@ -12,8 +12,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 \
    && apt-get update \
    && add-apt-repository 'deb https://repo.sovrin.org/sdk/deb bionic stable' \
    && apt-get update \
-   && apt-get install -y libindy \
-   && apt-get install -y libnullpay
+   && apr-get python3-dev \
+   && apt-get install -y libindy
 
 ENV RUNMODE=docker
 
