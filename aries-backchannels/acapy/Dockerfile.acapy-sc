@@ -12,7 +12,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE7709D068DB5E88 \
    && apt-get update \
    && add-apt-repository 'deb https://repo.sovrin.org/sdk/deb bionic stable' \
    && apt-get update \
-   && apr-get python3-dev \
+   && apt-get install -y python3-dev build-essential \
    && apt-get install -y libindy
 
 ENV RUNMODE=docker
