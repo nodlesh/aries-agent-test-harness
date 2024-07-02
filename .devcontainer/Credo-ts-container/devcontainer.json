@@ -25,7 +25,13 @@
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
-	"postCreateCommand": "npm install -g typescript && \
+	"postCreateCommand": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
+        export NVM_DIR=\"$HOME/.nvm\" && \
+        [ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\" && \
+        [ -s \"$NVM_DIR/bash_completion\" ] && \\. \"$NVM_DIR/bash_completion\" && \
+        nvm install 20 && \
+        nvm use 20 && \
+        npm install -g typescript && \
 		yarn install && \
 		cd server && \
 		npm install && \
