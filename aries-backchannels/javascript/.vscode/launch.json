@@ -12,5 +12,18 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": ["${workspaceFolder}/out/**/*.js"]
         },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "yarn Launch & Debug AFJ Agent",
+            "runtimeExecutable": "yarn",
+            "args": [
+                "ts-node",
+                "src/index.ts",
+                "9020"
+            ],
+            "cwd": "${workspaceFolder}/server",
+            "console": "integratedTerminal"
+        }
     ]
 }
