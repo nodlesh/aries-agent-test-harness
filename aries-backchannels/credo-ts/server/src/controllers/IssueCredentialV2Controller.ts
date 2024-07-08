@@ -143,6 +143,12 @@ export class IssueCredentialV2Controller extends BaseController {
             attributes: preview.attributes,
             credentialDefinitionId: data.filter.indy.cred_def_id,
           },
+          // Credo Upgrade - added based on https://credo.js.org/guides/tutorials/issue-an-anoncreds-credential-over-didcomm#4-issuing-a-credential
+          anoncreds: {
+            attributes: preview.attributes,
+            // TODO Change the filters here from indy to anoncreds
+            credentialDefinitionId: data.filter.indy.cred_def_id,
+          },
         },
       })
       return this.mapCredential(credentialRecord)

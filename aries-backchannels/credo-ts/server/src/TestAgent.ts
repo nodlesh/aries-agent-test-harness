@@ -2,9 +2,9 @@ import { $log } from '@tsed/common'
 import { Agent, AgentEventTypes, AgentMessageProcessedEvent, AutoAcceptCredential, AutoAcceptProof, CredentialsModule, DidsModule, InitConfig, MediatorModule, ProofsModule, V2CredentialProtocol, V2ProofProtocol } from '@credo-ts/core'
 import { agentDependencies } from '@credo-ts/node'
 import { AskarModule } from '@credo-ts/askar'
-import { AnonCredsModule, LegacyIndyCredentialFormatService, LegacyIndyProofFormatService,  V1CredentialProtocol, V1ProofProtocol } from '@credo-ts/anoncreds'
+import { AnonCredsModule, LegacyIndyCredentialFormatService, LegacyIndyProofFormatService,  V1CredentialProtocol, V1ProofProtocol, AnonCredsCredentialFormatService } from '@credo-ts/anoncreds'
 import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
-import { IndyVdrAnonCredsRegistry, IndyVdrModule, IndyVdrSovDidResolver, IndyVdrPoolConfig } from '@credo-ts/indy-vdr'
+import { IndyVdrAnonCredsRegistry, IndyVdrModule, IndyVdrSovDidResolver, IndyVdrPoolConfig, IndyVdrIndyDidRegistrar } from '@credo-ts/indy-vdr'
 import { TsedLogger } from './TsedLogger'
 import { TransportConfig } from './TestHarnessConfig'
 import { anoncreds } from '@hyperledger/anoncreds-nodejs'
@@ -86,7 +86,8 @@ export function getAskarAnonCredsIndyModules(indyNetworkConfig: IndyVdrPoolConfi
           indyCredentialFormat: legacyIndyCredentialFormatService,
         }),
         new V2CredentialProtocol({
-          credentialFormats: [legacyIndyCredentialFormatService],
+          // Credo Update - added AnonCredsCredentialFormatService as shown here, https://credo.js.org/guides/tutorials/issue-an-anoncreds-credential-over-didcomm#issuer
+          credentialFormats: [legacyIndyCredentialFormatService, new AnonCredsCredentialFormatService()],
         }),
       ],
     }),
@@ -103,6 +104,7 @@ export function getAskarAnonCredsIndyModules(indyNetworkConfig: IndyVdrPoolConfi
     }),
     anoncreds: new AnonCredsModule({
       registries: [new IndyVdrAnonCredsRegistry()],
+      anoncreds,
     }),
     anoncredsRs: new AnonCredsRsModule({ anoncreds }),
     indyVdr: new IndyVdrModule({
@@ -110,6 +112,8 @@ export function getAskarAnonCredsIndyModules(indyNetworkConfig: IndyVdrPoolConfi
       networks: [indyNetworkConfig],
     }),
     dids: new DidsModule({
+      // Credo Update - added from registrars: [new IndyVdrIndyDidRegistrar()], as shown here, https://credo.js.org/guides/tutorials/issue-an-anoncreds-credential-over-didcomm#issuer
+      registrars: [new IndyVdrIndyDidRegistrar()],
       resolvers: [new IndyVdrSovDidResolver()],
     }),
     askar: new AskarModule({ ariesAskar }),
