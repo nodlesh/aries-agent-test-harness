@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 as base
+FROM ubuntu:22.04 as base
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -28,6 +28,8 @@ RUN apt-get update -y && apt-get install -y --allow-unauthenticated \
 
 # Install yarn seperately due to `no-install-recommends` to skip nodejs install 
 RUN apt-get install -y --no-install-recommends yarn
+
+RUN apt-get upgrade -y libstdc++6
 
 FROM base as final
 

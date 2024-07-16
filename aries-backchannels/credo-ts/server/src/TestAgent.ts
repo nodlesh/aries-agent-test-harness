@@ -2,8 +2,8 @@ import { $log } from '@tsed/common'
 import { Agent, AgentEventTypes, AgentMessageProcessedEvent, AutoAcceptCredential, AutoAcceptProof, CredentialsModule, DidsModule, InitConfig, MediatorModule, ProofsModule, V2CredentialProtocol, V2ProofProtocol } from '@credo-ts/core'
 import { agentDependencies } from '@credo-ts/node'
 import { AskarModule } from '@credo-ts/askar'
-import { AnonCredsModule, LegacyIndyCredentialFormatService, LegacyIndyProofFormatService,  V1CredentialProtocol, V1ProofProtocol, AnonCredsCredentialFormatService } from '@credo-ts/anoncreds'
-import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
+import { AnonCredsModule, LegacyIndyCredentialFormatService, LegacyIndyProofFormatService,  V1CredentialProtocol, V1ProofProtocol, AnonCredsCredentialFormatService, AnonCredsProofFormatService } from '@credo-ts/anoncreds'
+//import { AnonCredsRsModule } from '@aries-framework/anoncreds-rs'
 import { IndyVdrAnonCredsRegistry, IndyVdrModule, IndyVdrSovDidResolver, IndyVdrPoolConfig, IndyVdrIndyDidRegistrar } from '@credo-ts/indy-vdr'
 import { TsedLogger } from './TsedLogger'
 import { TransportConfig } from './TestHarnessConfig'
@@ -98,7 +98,7 @@ export function getAskarAnonCredsIndyModules(indyNetworkConfig: IndyVdrPoolConfi
           indyProofFormat: legacyIndyProofFormatService,
         }),
         new V2ProofProtocol({
-          proofFormats: [legacyIndyProofFormatService],
+          proofFormats: [legacyIndyProofFormatService, new AnonCredsProofFormatService],
         }),
       ],
     }),
@@ -106,7 +106,7 @@ export function getAskarAnonCredsIndyModules(indyNetworkConfig: IndyVdrPoolConfi
       registries: [new IndyVdrAnonCredsRegistry()],
       anoncreds,
     }),
-    anoncredsRs: new AnonCredsRsModule({ anoncreds }),
+    //anoncredsRs: new AnonCredsRsModule({ anoncreds }),
     indyVdr: new IndyVdrModule({
       indyVdr,
       networks: [indyNetworkConfig],

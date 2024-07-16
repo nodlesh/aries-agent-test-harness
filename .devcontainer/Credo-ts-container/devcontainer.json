@@ -45,7 +45,7 @@
 
 	"runArgs": [
 		"--network=aath_network",
-		"--name=acme_agent"
+		"--name=acme_agent_dev"
 	],
 
 	// Configure tool-specific properties.
