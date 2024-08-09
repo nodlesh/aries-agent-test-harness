@@ -10,6 +10,7 @@ import { TransportConfig } from './TestHarnessConfig'
 import { anoncreds } from '@hyperledger/anoncreds-nodejs'
 import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
 import { indyVdr } from '@hyperledger/indy-vdr-nodejs'
+import { HttpInboundTransport } from '@credo-ts/node'
 
 export type TestAgent = Agent<ReturnType<typeof getAskarAnonCredsIndyModules>>
 
@@ -26,10 +27,11 @@ export async function createAgent({
   const agentConfig: InitConfig = {
     label: agentName,
     walletConfig: {
-      id: `aath-javascript-${Date.now()}`,
+      id: `aath-credo-${Date.now()}`,
       key: '00000000000000000000000000000Test01',
     },
-    endpoints: transport.endpoints,
+    endpoints: ['http://localhost:9021'], // Ensure this is correctly set
+    //endpoints: transport.endpoints,
     useDidSovPrefixWhereAllowed: true,
     logger: new TsedLogger($log),
   }
@@ -48,7 +50,8 @@ export async function createAgent({
   })
 
   for (const it of transport.inboundTransports) {
-    agent.registerInboundTransport(it)
+    //agent.registerInboundTransport(it)
+    agent.registerInboundTransport(new HttpInboundTransport({ port: 9021 }))
   }
 
   for (const ot of transport.outboundTransports) {

@@ -81,7 +81,7 @@ export class TestHarnessConfig {
   private async getAgentArgs(options: { inboundTransports: Transport[]; outboundTransports: Transport[] }) {
     let agentArgs = this._createAgentArgs
     if (!agentArgs) {
-      const agentName = process.env.AGENT_NAME ? `AFJ ${process.env.AGENT_NAME}` : `AFJ Agent (${this.agentPorts.http})`
+      const agentName = process.env.AGENT_NAME ? `Credo ${process.env.AGENT_NAME}` : `Credo Agent (${this.agentPorts.http})`
 
       // There are multiple ways to retrieve the genesis file
       // we account for all of them

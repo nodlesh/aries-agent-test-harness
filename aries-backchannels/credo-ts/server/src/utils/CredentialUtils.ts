@@ -9,7 +9,7 @@ export class CredentialUtils {
 
   public static async getAnonCredsCredentialById(agent: Agent, credentialId: string): Promise<Record<string, unknown>> {
     const holderService = agent.dependencyManager.resolve<AnonCredsHolderService>(AnonCredsHolderServiceSymbol)
-    const credentialInfo = await holderService.getCredential(agent.context, { credentialId })
+    const credentialInfo = await holderService.getCredential(agent.context, { id: credentialId })
 
     return {
       attrs: credentialInfo.attributes,

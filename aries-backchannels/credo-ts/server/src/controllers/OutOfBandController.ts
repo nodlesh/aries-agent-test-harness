@@ -1,4 +1,4 @@
-import { Controller, Get, PathParams, Post, BodyParams } from '@tsed/common'
+/* import { Controller, Get, PathParams, Post, BodyParams } from '@tsed/common'
 import { NotFound } from '@tsed/exceptions'
 import {
   OutOfBandRecord,
@@ -104,7 +104,9 @@ export class OutOfBandController extends BaseController {
       throw new CredoError('Processing invitation did not result in a out of band record')
     }
 
-    return this.mapConnection(outOfBandRecord)
+    // return this.mapConnection(outOfBandRecord)
+    return this.mapConnection(connectionRecord)
+    
   }
 
   @Post('/accept-invitation')
@@ -150,8 +152,8 @@ export class OutOfBandController extends BaseController {
   private async waitForState(id: string, state: DidExchangeState) {
     return await firstValueFrom(
       this.subject.pipe(
-        filter((c) => c.payload.outOfBandRecord.id === id ),
-        filter((c) => c.payload.outOfBandRecord.state === state),
+        filter((c) => c.payload.connectionRecord.id === id ),
+        filter((c) => c.payload.connectionRecord.state === state),
         timeout(20000)
       )
     )
@@ -167,3 +169,4 @@ export class OutOfBandController extends BaseController {
     }
   }
 }
+ */

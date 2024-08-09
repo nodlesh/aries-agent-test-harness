@@ -15,13 +15,22 @@
 
 	"workspaceFolder": "/aries-backchannels/credo-ts",
 	
+	"mounts": [
+		{ "source": "${localWorkspaceFolder}/aries-backchannels/data", "target": "/aries-backchannels/data", "type": "bind" }
+	],
+
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"docker-from-docker": "latest"
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [9020],
+	"forwardPorts": [9020, 8080],
+
+	"runArgs": [
+		"--network=aath_network",
+		"--name=acme_agent_dev"
+	],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "uname -a",
@@ -42,11 +51,6 @@
 		apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3B4FE6ACC0B21F32 && \
 		add-apt-repository -y \"deb http://security.ubuntu.com/ubuntu bionic-security main\" && \
 		apt-get install -y --allow-unauthenticated libindy",
-
-	"runArgs": [
-		"--network=aath_network",
-		"--name=acme_agent_dev"
-	],
 
 	// Configure tool-specific properties.
 	"customizations": {
