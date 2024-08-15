@@ -30,13 +30,14 @@ async function startup() {
 
   try {
     $log.debug('Start server...')
-    const platform = await PlatformExpress.bootstrap(Server)
-    platform.settings.set('port', testHarnessConfig.backchannelPort)
-    //platform.settings.port = testHarnessConfig.backchannelPort
 
+    const platform = await PlatformExpress.bootstrap(Server, {
+      httpPort: testHarnessConfig.backchannelPort,
+    });
+ 
     await testHarnessConfig.agentStartup()
 
-    await platform.listen()
+    await platform.listen(true)
 
     $log.level = 'debug'
   } catch (er) {

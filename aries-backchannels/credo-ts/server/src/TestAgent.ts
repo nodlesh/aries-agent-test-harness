@@ -30,8 +30,7 @@ export async function createAgent({
       id: `aath-credo-${Date.now()}`,
       key: '00000000000000000000000000000Test01',
     },
-    endpoints: ['http://localhost:9021'], // Ensure this is correctly set
-    //endpoints: transport.endpoints,
+    endpoints: transport.endpoints,
     useDidSovPrefixWhereAllowed: true,
     logger: new TsedLogger($log),
   }
