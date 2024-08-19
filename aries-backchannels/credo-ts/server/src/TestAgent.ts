@@ -49,8 +49,7 @@ export async function createAgent({
   })
 
   for (const it of transport.inboundTransports) {
-    //agent.registerInboundTransport(it)
-    agent.registerInboundTransport(new HttpInboundTransport({ port: 9021 }))
+    agent.registerInboundTransport(it)
   }
 
   for (const ot of transport.outboundTransports) {
